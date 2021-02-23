@@ -1,0 +1,6 @@
+[labservers]
+ansiblelab6
+
+[labservers:vars]
+ansible_user = jschaben
+ansible_ssh_private_key_file = /home/jschaben/.ssh/id_rsa
