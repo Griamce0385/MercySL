@@ -58,5 +58,5 @@
   mysql_db:
     name: "{{ db['database'] }}"
     state: import
-    target: "/temp/{{ db['database'] }}"
+    target: "/tmp/{{ db['backupfile'] }}"
     login_password: "{{ db['password'] }}"
