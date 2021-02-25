@@ -12,3 +12,8 @@
     yum:
       name: httpd
       state: absent
+
+  - name: Remove FW rules
+    yum:
+      name: firewalld
+      state: absent

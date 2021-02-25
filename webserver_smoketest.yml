@@ -1,0 +1,8 @@
+---
+- name: Verify the apache sevice
+  hosts: localhost
+  tasks:
+    - name: Ensure webserver is reaschable
+      uri:
+        url: http://ansiblelab6
+        status_code: 200

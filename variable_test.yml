@@ -1,0 +1,44 @@
+---
+- name: Install Apache and start the servcies
+  hosts: labservers
+  become: yes
+  vars:
+    web_pkg: httpd
+    firewall_pkg: firewalld
+    web_service: httpd
+    firewall_service: firewalld
+    python_pkg: phython-jttplib2
+    rule: http
+
+  tasks:
+    - name: Install required packages
+      yum:
+        name:
+          - "{{ web_pkg }}"
+          - "{{ firewall_pkg }}"
+          - "{{  python_pkg }}"
+
+        state: latest
+    - name: Starte and enable the "{{ firewall_service }}" service
+      service:
+        name: "{{ firewall_service }}"
+        enabled: true
+        state: started
+
+    - name: Start and enable the "{{ web_service }}" service
+      service:
+        name: "{{ web_service }}"
+        enabled: true
+        state: started
+
+    - name: Create web content to be served
+      copy:
+        content: "Example Web Content"
+        dest: /var/www/html/index.html
+
+    - name: open the port for {{ rule }}
+      firewalld:
+        service: "{{ rule }}"
+        permanent: true
+        immediate: true
+        state: enabled
